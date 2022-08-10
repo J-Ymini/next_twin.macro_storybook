@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import tw from "twin.macro";
 
+import TweetBox from "../TweetBox";
+
 import { RefreshIcon } from "@heroicons/react/outline";
 
 const Feed = () => {
@@ -10,6 +12,7 @@ const Feed = () => {
         <StyledHomeText>Home</StyledHomeText>
         <StyledRefreshIcon />
       </StyledRefreshWrapper>
+      <TweetBox />
     </StyledWrapper>
   );
 };
