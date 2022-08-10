@@ -17,7 +17,7 @@ const Sidebar = (): JSX.Element => {
       <StyledMainIconImage src="https://static.vecteezy.com/system/resources/previews/002/534/045/original/social-media-twitter-logo-blue-isolated-free-vector.jpg" />
       <ul>
         {iconsList.map(({ id, text, Icon }) => (
-          <StyledIconsItem key={id} className="group">
+          <StyledIconsItem key={id}>
             <Icon />
             <StyledIconsItemDescription>{text}</StyledIconsItemDescription>
           </StyledIconsItem>
@@ -30,16 +30,16 @@ const Sidebar = (): JSX.Element => {
 export default Sidebar;
 
 const StyledWrapper = styled.div`
-  ${tw`flex flex-col`}
+  ${tw`flex flex-col col-span-2 items-center px-4 md:items-start`}
 `;
 
 const StyledMainIconImage = styled.img`
-  ${tw`w-10 h-10`}
+  ${tw`w-10 h-10 m-3`}
 `;
 
 const StyledIconsItem = styled.li`
-  ${tw`flex cursor-pointer items-center max-w-min space-x-2 px-4 py-3 rounded-full 
-  transition-all duration-200 hover:(bg-gray-100)`}
+  ${tw`flex cursor-pointer items-center max-w-min space-x-2 px-4 py-3 rounded-full transition-all duration-200 text-base font-light lg:text-xl 
+  hover:(bg-gray-100)`}
 
   svg {
     ${tw`h-6 w-6`}
@@ -47,6 +47,8 @@ const StyledIconsItem = styled.li`
 `;
 
 const StyledIconsItemDescription = styled.p`
+  ${tw`hidden md:inline-flex`}
+
   ${StyledIconsItem}:hover & {
     ${tw`text-twitter`}
   }
