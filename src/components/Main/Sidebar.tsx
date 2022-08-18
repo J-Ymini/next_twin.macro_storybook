@@ -16,7 +16,7 @@ const Sidebar = (): JSX.Element => {
     <StyledWrapper>
       <StyledMainIconImage src="https://static.vecteezy.com/system/resources/previews/002/534/045/original/social-media-twitter-logo-blue-isolated-free-vector.jpg" />
       <ul>
-        {iconsList.map(({ id, text, Icon }) => (
+        {iconsList?.map(({ id, text, Icon }) => (
           <StyledIconsItem key={id}>
             <Icon />
             <StyledIconsItemDescription>{text}</StyledIconsItemDescription>

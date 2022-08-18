@@ -39,7 +39,7 @@ const Feed = ({ tweets: tweetsProp }: FeedProps) => {
       </StyledRefreshWrapper>
       <TweetBox />
       <ul>
-        {tweets.map((tweet) => {
+        {tweets?.map((tweet) => {
           return <TweetListItem key={tweet._id} tweet={tweet} />;
         })}
       </ul>
