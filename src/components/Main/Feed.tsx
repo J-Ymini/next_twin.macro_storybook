@@ -1,18 +1,48 @@
+import { useState } from "react";
+
 import styled from "styled-components";
 import tw from "twin.macro";
 
 import TweetBox from "../TweetBox";
+import TweetListItem from "../TweetListItem";
 
 import { RefreshIcon } from "@heroicons/react/outline";
+import { Tweet } from "types/typings";
+import fetchTweets from "utils/fetchTweets";
+import API_URLS from "src/api_config";
+import toast, { Toaster } from "react-hot-toast";
 
-const Feed = () => {
+interface FeedProps {
+  tweets: Tweet[];
+}
+
+const Feed = ({ tweets: tweetsProp }: FeedProps) => {
+  const [tweets, setTweets] = useState(tweetsProp);
+
+  const handleRefresh = async () => {
+    const refreshToast = toast.loading("Refreshing...");
+
+    const tweets = await fetchTweets(API_URLS.tweets);
+    setTweets(tweets);
+
+    toast.success("Feed Updated!", {
+      id: refreshToast,
+    });
+  };
+
   return (
     <StyledWrapper>
+      <Toaster />
       <StyledRefreshWrapper>
         <StyledHomeText>Home</StyledHomeText>
-        <StyledRefreshIcon />
+        <StyledRefreshIcon onClick={handleRefresh} />
       </StyledRefreshWrapper>
       <TweetBox />
+      <ul>
+        {tweets.map((tweet) => {
+          return <TweetListItem key={tweet._id} tweet={tweet} />;
+        })}
+      </ul>
     </StyledWrapper>
   );
 };

@@ -1,10 +1,17 @@
-import type { NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import Head from "next/head";
-import { Feed, Sidebar, Widgets } from "src/components/Main";
 import styled from "styled-components";
+import { Feed, Sidebar, Widgets } from "src/components/Main";
 import tw from "twin.macro";
+import fetchTweets from "utils/fetchTweets";
+import { Tweet } from "types/typings";
+import API_URLS from "src/api_config";
 
-const Home: NextPage = () => {
+export interface MainPageProps {
+  tweets: Tweet[];
+}
+
+const Home = ({ tweets }: MainPageProps) => {
   return (
     <StyledWrapper>
       <Head>
@@ -14,7 +21,7 @@ const Home: NextPage = () => {
       </Head>
       <StyledMain>
         <Sidebar />
-        <Feed />
+        <Feed tweets={tweets} />
         <Widgets />
       </StyledMain>
     </StyledWrapper>
@@ -30,3 +37,13 @@ const StyledWrapper = styled.section`
 const StyledMain = styled.main`
   ${tw`grid grid-cols-9`}
 `;
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const tweets = await fetchTweets(API_URLS.tweets);
+
+  return {
+    props: {
+      tweets,
+    },
+  };
+};
